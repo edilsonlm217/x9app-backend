@@ -14,7 +14,7 @@ class ClientController {
       neighborhood: req.body.neighborhood,
       due_date_day: parseInt(format(parseISO(req.body.due_date_day), 'dd')),
       monthly_payment: req.body.monthly_payment,
-      is_active: req.body.is_active,
+      is_active: true,
     });
 
     const max_invoice_amount = 6;
@@ -22,14 +22,14 @@ class ClientController {
 
     for (let i = 0; i < max_invoice_amount; i++) {
       invoices_array.push({
-        due_date: addMonths(new Date(), i),
-        invoice_value: 120,
+        due_date: addMonths(parseISO(req.body.due_date_day), i),
+        invoice_value: parseInt(req.body.monthly_payment),
         is_paid: false,
         client_id: client.id,
       });
     }
 
-    const invoices = await Invoice.bulkCreate(invoices_array);
+    await Invoice.bulkCreate(invoices_array);
 
     return res.json({ ok: true });
   }
