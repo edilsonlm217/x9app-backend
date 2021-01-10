@@ -4,6 +4,12 @@ import Client from '../models/Client';
 import Invoice from '../models/Invoice';
 
 class ClientController {
+  async index(req, res) {
+    const clients = await Client.findAll();
+
+    return res.json(clients);
+  }
+
   async store(req, res) {
     const client = await Client.create({
       name: req.body.name,
