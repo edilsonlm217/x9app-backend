@@ -6,6 +6,10 @@ class SearchController {
   async index(req, res) {
     const { search_term } = req.query;
 
+    if (search_term === '') {
+      return res.json([]);
+    }
+
     const search_result = await Client.findAll({
       where: {
         name: {
