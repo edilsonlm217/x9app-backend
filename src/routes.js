@@ -13,6 +13,7 @@ routes.post('/session', SessionController.store);
 routes.post('/users', UserController.store);
 
 routes.post('/clients', ClientController.store);
+routes.get('/clients/all', ClientController.index);
 routes.get('/clients', ClientController.show);
 
 routes.get('/search', SearchController.index);
